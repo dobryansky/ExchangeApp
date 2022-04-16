@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/weather_nav_graph"
+    app:startDestination="@id/ListRatesFragment">
+
+    <fragment
+        android:id="@+id/ListRatesFragment"
+        android:name="com.artem.exchangeapp.presentation.list_rates.ListRatesFragment"
+        android:label="ListRatesFragment" />
+    <fragment
+        android:id="@+id/FavouriteRatesFragment"
+        android:name="com.artem.exchangeapp.presentation.fav_rates.FavouriteRatesFragment"
+        android:label="FavouriteRates" />
+</navigation>

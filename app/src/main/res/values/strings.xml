@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ExchangeApp</string>
+    <string name="popular">popular</string>
+    <string name="favourite">favourite</string>
+</resources>
