@@ -11,13 +11,13 @@ import com.artem.exchangeapp.presentation.getRates
 
 class RatesAdapter : RecyclerView.Adapter<RatesAdapter.RatesViewHolder>() {
 
-    private var listRates: MutableList<Rate> = getRates()
+     var listRates: MutableList<Rate> = getRates()
 
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RatesAdapter.RatesViewHolder {
+    ): RatesViewHolder {
         return RatesViewHolder(
             ItemRecycleviewBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -30,7 +30,7 @@ class RatesAdapter : RecyclerView.Adapter<RatesAdapter.RatesViewHolder>() {
 
         holder.binding.apply {
             txtCurrency.text = listRates[position].name
-            txtValue.text = listRates[position].cost.toString()
+            txtValue.text = listRates[position].value.toString()
             favButton.isChecked = listRates[position].favourite
         }
 
