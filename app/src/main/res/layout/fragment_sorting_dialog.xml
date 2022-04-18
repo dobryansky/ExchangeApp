@@ -32,6 +32,7 @@
         <RadioButton
             android:id="@+id/radioButton1"
             android:layout_width="match_parent"
+            android:checked="true"
             android:layout_height="wrap_content"
             android:text="Алфавит Возрастание" />
 

@@ -34,6 +34,14 @@ class ListRatesFragment : BaseFragment<FragmentListRatesBinding>() {
         initRecView()
         initSpinner()
 
+        binding.btnPreferences.setOnClickListener {
+            SortingFragment(object : ISortAnswer {
+                override fun sortAnswer(sortMethod: SortMethod) {
+                    sortMethodRate=sortMethod
+                }
+            }).show(parentFragmentManager, "")
+        }
+
         lifecycleScope.launchWhenStarted {
             viewModel.conversion.collect { event ->
                 when (event) {

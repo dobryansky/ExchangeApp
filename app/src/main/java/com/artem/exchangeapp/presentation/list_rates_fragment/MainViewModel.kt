@@ -77,23 +77,6 @@ class MainViewModel @Inject constructor(
     }
 
     //https://api.exchangerate.host/latest?base=usd&symbols=RUB,EUR,USD,BYN,PLN,GBP,KZT,ILS,CZK,AUD,BRL,HKD,IDR,CNY,JPY
-    private fun getRateForCurrency(currency: String, rates: Rates) = when (currency) {
-        "RUB" -> rates.rUB
-        "EUR" -> rates.hKD
-        "USD" -> rates.uSD
-        "BYN" -> rates.eUR
-        "PLN" -> rates.pLN
-        "GBP" -> rates.gBP
-        "KZT" -> rates.kZT
-        "ILS" -> rates.iLS
-        "CZK" -> rates.cZK
-        "AUD" -> rates.aUD
-        "BRL" -> rates.bRL
-        "HKD" -> rates.hKD
-        "IDR" -> rates.iDR
-        "CNY" -> rates.cNY
-        "JPY" -> rates.jPY
-        else -> null
-    }
+
 
 }
