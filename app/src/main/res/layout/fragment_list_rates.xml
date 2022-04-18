@@ -77,4 +77,12 @@
         android:text="Base Value"
         app:layout_constraintBottom_toTopOf="@+id/spinner_change_rate"
         app:layout_constraintStart_toStartOf="@+id/spinner_change_rate" />
+
+    <TextView
+        android:id="@+id/txt_sort_method"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ALPHABET UP"
+        app:layout_constraintBottom_toTopOf="@+id/btn_preferences"
+        app:layout_constraintEnd_toEndOf="@+id/btn_preferences" />
 </androidx.constraintlayout.widget.ConstraintLayout>

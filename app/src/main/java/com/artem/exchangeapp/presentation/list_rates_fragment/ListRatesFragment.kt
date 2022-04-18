@@ -13,15 +13,19 @@ import kotlinx.coroutines.flow.collect
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.artem.exchangeapp.databinding.FragmentListRatesBinding
 import com.artem.exchangeapp.presentation.adapters.RatesAdapter
+import com.artem.exchangeapp.presentation.dialog_fragment.SortingFragment
 import com.artem.exchangeapp.presentation.utils.BaseFragment
+import com.artem.exchangeapp.presentation.utils.SortingRates
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.migration.OptionalInject
+import kotlin.properties.Delegates.notNull
 
 
 @OptionalInject
 @AndroidEntryPoint
 class ListRatesFragment : BaseFragment<FragmentListRatesBinding>() {
     private val viewModel: MainViewModel by viewModels()
+    private var sortMethod by notNull<Int>()
     private var adapter = RatesAdapter()
     override fun initBinding(
         inflater: LayoutInflater,
@@ -33,21 +37,26 @@ class ListRatesFragment : BaseFragment<FragmentListRatesBinding>() {
         super.onViewCreated(view, savedInstanceState)
         initRecView()
         initSpinner()
+        setupSortingFragmentListener()
+        initBtnPref()
+        observe()
+        sortMethod = savedInstanceState?.getInt(SORT_VOLUME) ?: 1
+    }
 
+    private fun initBtnPref() {
         binding.btnPreferences.setOnClickListener {
-            SortingFragment(object : ISortAnswer {
-                override fun sortAnswer(sortMethod: SortMethod) {
-                    sortMethodRate=sortMethod
-                }
-            }).show(parentFragmentManager, "")
+            showSortingFragment()
         }
+    }
 
+    private fun observe() {
         lifecycleScope.launchWhenStarted {
             viewModel.conversion.collect { event ->
                 when (event) {
                     is MainViewModel.CurrencyEvent.Success -> {
                         binding.progressBar.isVisible = false
-                        adapter.listRates = event.listRates.toMutableList()
+                        val sortRates = SortingRates(sortMethod, event.listRates).sort()
+                        adapter.listRates = sortRates.toMutableList()
                         adapter.notifyDataSetChanged()
                         print("123")
                     }
@@ -76,7 +85,7 @@ class ListRatesFragment : BaseFragment<FragmentListRatesBinding>() {
                     id: Long
                 ) {
                     viewModel.convert(
-                        binding.spinnerChangeRate.selectedItem.toString(),
+                        binding.spinnerChangeRate.selectedItem.toString()
                     )
                 }
             }
@@ -94,6 +103,32 @@ class ListRatesFragment : BaseFragment<FragmentListRatesBinding>() {
             recView.adapter = adapter
         }
     }
+
+
+    private fun showSortingFragment() {
+        SortingFragment.show(parentFragmentManager, sortMethod)
+    }
+
+    private fun setupSortingFragmentListener() {
+        SortingFragment.setupListener(parentFragmentManager, this) {
+            this.sortMethod = it
+            viewModel.convert(binding.spinnerChangeRate.selectedItem.toString())
+            binding.txtSortMethod.text = when (sortMethod) {
+                1 -> "ALPHABET UP"
+                2 -> "ALPHABET DOWN"
+                3 -> "VALUE UP"
+                4 -> "VALUE DOWN"
+                else -> "ALPHABET UP"
+            }
+        }
+    }
+
+    companion object {
+        private val TAG = ListRatesFragment::class.java.simpleName
+        private val SORT_VOLUME = "SORT_VOLUME"
+    }
+
+
 }
 
 
