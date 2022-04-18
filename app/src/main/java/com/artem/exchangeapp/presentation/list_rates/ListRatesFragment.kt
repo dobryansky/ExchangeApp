@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import kotlinx.coroutines.flow.collect
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.artem.exchangeapp.databinding.FragmentListRatesBinding
@@ -31,26 +32,14 @@ class ListRatesFragment : BaseFragment<FragmentListRatesBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecView()
-
-
-
-        binding.btnChangeRate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                viewModel.convert(
-                    binding.btnChangeRate.selectedItem.toString(),
-                )
-            }
-        }
+        initSpinner()
 
         lifecycleScope.launchWhenStarted {
             viewModel.conversion.collect { event ->
-                when(event) {
+                when (event) {
                     is MainViewModel.CurrencyEvent.Success -> {
                         binding.progressBar.isVisible = false
-                        adapter.listRates= event.listRates.toMutableList()
+                        adapter.listRates = event.listRates.toMutableList()
                         adapter.notifyDataSetChanged()
                         print("123")
                     }
@@ -66,9 +55,34 @@ class ListRatesFragment : BaseFragment<FragmentListRatesBinding>() {
         }
     }
 
+    private fun initSpinner() {
+        binding.spinnerChangeRate.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel.convert(
+                        binding.spinnerChangeRate.selectedItem.toString(),
+                    )
+                }
+            }
+    }
+
     private fun initRecView() {
         binding.apply {
             recView.layoutManager = LinearLayoutManager(context)
+            recView.addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    LinearLayoutManager.VERTICAL
+                )
+            )
             recView.adapter = adapter
         }
     }

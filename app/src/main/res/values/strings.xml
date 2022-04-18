@@ -2,6 +2,8 @@
     <string name="app_name">ExchangeApp</string>
     <string name="popular">popular</string>
     <string name="favourite">favourite</string>
+    <string name="currency_text">1 %1$s </string>
+
     <string-array name="currency_codes">
         <item>RUB</item>
         <item>EUR</item>
