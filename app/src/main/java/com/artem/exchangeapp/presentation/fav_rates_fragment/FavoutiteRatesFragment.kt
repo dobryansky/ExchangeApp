@@ -1,4 +1,4 @@
-package com.artem.exchangeapp.presentation.fav_rates
+package com.artem.exchangeapp.presentation.fav_rates_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
