@@ -2,4 +2,22 @@
     <string name="app_name">ExchangeApp</string>
     <string name="popular">popular</string>
     <string name="favourite">favourite</string>
+    <string-array name="currency_codes">
+        <item>RUB</item>
+        <item>EUR</item>
+        <item>USD</item>
+        <item>BYN</item>
+        <item>PLN</item>
+        <item>GBP</item>
+        <item>KZT</item>
+        <item>ILS</item>
+        <item>CZK</item>
+        <item>AUD</item>
+        <item>BRL</item>
+        <item>HKD</item>
+        <item>IDR</item>
+        <item>CNY</item>
+        <item>JPY</item>
+
+    </string-array>
 </resources>

@@ -1,27 +1,31 @@
 package com.artem.exchangeapp.data.mapper
 
-import com.artem.exchangeapp.data.remote.Rates
-import com.artem.exchangeapp.data.remote.RatesDTO
+
+import com.artem.exchangeapp.data.remote.modelDTO.CurrencyRatesDTO
 import com.artem.exchangeapp.presentation.Rate
 
 class RateMapper {
 
-    fun mapDTOtoRateListModel(dto:RatesDTO):List<Rate>{
+    fun mapRateDTOtoRate(rateDTO: CurrencyRatesDTO):List<Rate>{
         return listOf(
-            Rate("DKK", value = dto.rates.dKK, favourite = false),
-            Rate("AED", value = dto.rates.aED, favourite = false),
-            Rate("AFN", value = dto.rates.aFN, favourite = false),
-            Rate("ALL", value = dto.rates.aLL, favourite = false),
-            Rate("AMD", value = dto.rates.aMD, favourite = false),
-            Rate("ANG", value = dto.rates.aNG, favourite = false),
-            Rate("AOA", value = dto.rates.aOA, favourite = false),
-            Rate("ARS", value = dto.rates.aRS, favourite = false),
-            Rate("AUD", value = dto.rates.aUD, favourite = false),
-            Rate("AWG", value = dto.rates.aWG, favourite = false),
-            Rate("AZN", value = dto.rates.aZN, favourite = false),
-            Rate("BAM", value = dto.rates.bAM, favourite = false),
-            Rate("BBD", value = dto.rates.bBD, favourite = false),
+            Rate("RUB", value = rateDTO.rates.rUB, favourite = false),
+            Rate("EUR", value = rateDTO.rates.eUR, favourite = false),
+            Rate("USD", value = rateDTO.rates.uSD, favourite = false),
+            Rate("BYN", value = rateDTO.rates.bYN, favourite = false),
+            Rate("PLN", value = rateDTO.rates.pLN, favourite = false),
+            Rate("GBP", value = rateDTO.rates.gBP, favourite = false),
+            Rate("KZT", value = rateDTO.rates.kZT, favourite = false),
+            Rate("ILS", value = rateDTO.rates.iLS, favourite = false),
+            Rate("CZK", value = rateDTO.rates.cZK, favourite = false),
+            Rate("AUD", value = rateDTO.rates.aUD, favourite = false),
+            Rate("HKD", value = rateDTO.rates.hKD, favourite = false),
+            Rate("IDR", value = rateDTO.rates.iDR, favourite = false),
+            Rate("CNY", value = rateDTO.rates.cNY, favourite = false),
+            Rate("JPY", value = rateDTO.rates.jPY, favourite = false),
 
         )
     }
+
+
+
 }

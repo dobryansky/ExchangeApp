@@ -7,16 +7,21 @@
     android:padding="16dp">
 
 
-    <Button
+
+
+    <Spinner
         android:id="@+id/btn_change_rate"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change rate"
+        android:entries="@array/currency_codes"
+        android:padding="15dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/btn_preferences"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/btn_preferences"
@@ -30,6 +35,12 @@
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toEndOf="@+id/btn_change_rate"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_height="match_parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recView"

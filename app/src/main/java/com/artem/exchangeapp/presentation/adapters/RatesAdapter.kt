@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.artem.exchangeapp.databinding.ItemRecycleviewBinding
 import com.artem.exchangeapp.presentation.Rate
-import com.artem.exchangeapp.presentation.getRates
+
 
 
 class RatesAdapter : RecyclerView.Adapter<RatesAdapter.RatesViewHolder>() {
 
-     var listRates: MutableList<Rate> = getRates()
+     var listRates: MutableList<Rate> = mutableListOf()
 
 
     override fun onCreateViewHolder(
