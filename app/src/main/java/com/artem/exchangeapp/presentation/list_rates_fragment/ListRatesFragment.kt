@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import kotlinx.coroutines.flow.collect
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.artem.exchangeapp.data.mapper.RateMapper
 import com.artem.exchangeapp.databinding.FragmentListRatesBinding
 import com.artem.exchangeapp.presentation.adapters.RatesAdapter
 import com.artem.exchangeapp.presentation.dialog_fragment.SortingFragment
@@ -55,7 +56,9 @@ class ListRatesFragment : BaseFragment<FragmentListRatesBinding>() {
                 when (event) {
                     is MainViewModel.CurrencyEvent.Success -> {
                         binding.progressBar.isVisible = false
-                        val sortRates = SortingRates(sortMethod, event.listRates).sort()
+
+                        val listRates = RateMapper().mapRateDTOtoRate(event.listRates)
+                        val sortRates = SortingRates(sortMethod, listRates).sort()
                         adapter.listRates = sortRates.toMutableList()
                         adapter.notifyDataSetChanged()
                         print("123")
@@ -127,6 +130,8 @@ class ListRatesFragment : BaseFragment<FragmentListRatesBinding>() {
         private val TAG = ListRatesFragment::class.java.simpleName
         private val SORT_VOLUME = "SORT_VOLUME"
     }
+
+
 
 
 }

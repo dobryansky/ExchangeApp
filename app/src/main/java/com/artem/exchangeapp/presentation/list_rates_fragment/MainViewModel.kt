@@ -4,6 +4,7 @@ package com.artem.exchangeapp.presentation.list_rates_fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.artem.exchangeapp.data.mapper.RateMapper
+import com.artem.exchangeapp.data.remote.modelDTO.CurrencyRatesDTO
 import com.artem.exchangeapp.data.remote.modelDTO.Rates
 import com.artem.exchangeapp.domain.MainRepository
 import com.artem.exchangeapp.presentation.Rate
@@ -27,7 +28,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     sealed class CurrencyEvent {
-        class Success(val listRates: List<Rate>) : CurrencyEvent()
+        class Success(val listRates: CurrencyRatesDTO) : CurrencyEvent()
         class Failure(val errorText: String) : CurrencyEvent()
         object Loading : CurrencyEvent()
         object Empty : CurrencyEvent()
@@ -49,14 +50,12 @@ class MainViewModel @Inject constructor(
                     CurrencyEvent.Failure(ratesResponse.message!!)
                 is Resource.Success -> {
                     val ratesDTO = ratesResponse.data!!
-                    val listRate = RateMapper().mapRateDTOtoRate(ratesDTO)
+                   // val listRate = RateMapper().mapRateDTOtoRate(ratesDTO)
                     _conversion.value = CurrencyEvent.Success(
-                        listRate
+                        ratesDTO
                     )
                 }
             }
-
-
         }
     }
 
