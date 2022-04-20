@@ -26,6 +26,5 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController,appBarConfiguration)
         binding.bottomNavigation.setupWithNavController(navController)
-
     }
 }

@@ -4,6 +4,8 @@ import android.provider.Telephony
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.artem.exchangeapp.R
 import com.artem.exchangeapp.databinding.ItemRecycleviewBinding
@@ -12,8 +14,18 @@ import com.artem.exchangeapp.presentation.Rate
 
 class RatesAdapter : RecyclerView.Adapter<RatesAdapter.RatesViewHolder>() {
 
-    var listRates: MutableList<Rate> = mutableListOf()
-    var favListRates: MutableSet<Rate> = mutableSetOf()
+    var listRates: List<Rate> = mutableListOf()
+    var favListRates: MutableSet<Int> = mutableSetOf()
+
+    fun setDate(newRateList: List<Rate>) {
+        val diffUtil = RateDiffUtill(listRates, newRateList)
+        val diffResults = DiffUtil.calculateDiff(diffUtil)
+        listRates = newRateList
+        diffResults.dispatchUpdatesTo(this)
+    }
+
+
+
 
 
     override fun onCreateViewHolder(
@@ -37,17 +49,11 @@ class RatesAdapter : RecyclerView.Adapter<RatesAdapter.RatesViewHolder>() {
             )
             txtValue.text = listRates[position].value.toString()
 
-            if(favListRates.contains(listRates[position])){
-                favButton.isChecked=true
-            }
             favButton.setOnCheckedChangeListener { checkBox, isChecked ->
-
                 if (isChecked) {
-                    favListRates.add(listRates[position])
-                    listRates[position].favourite=true
-                    // listRates[position].favourite = true
+                    favListRates.add(listRates[position].id)
                 } else {
-                    //listRates[position].favourite = false
+                    favListRates.remove(listRates[position].id)
                 }
             }
             //

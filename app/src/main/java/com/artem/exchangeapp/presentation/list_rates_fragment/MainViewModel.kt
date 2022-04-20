@@ -28,7 +28,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     sealed class CurrencyEvent {
-        class Success(val listRates: CurrencyRatesDTO) : CurrencyEvent()
+        class Success(val listRates: List<Rate>) : CurrencyEvent()
         class Failure(val errorText: String) : CurrencyEvent()
         object Loading : CurrencyEvent()
         object Empty : CurrencyEvent()
@@ -50,9 +50,10 @@ class MainViewModel @Inject constructor(
                     CurrencyEvent.Failure(ratesResponse.message!!)
                 is Resource.Success -> {
                     val ratesDTO = ratesResponse.data!!
-                   // val listRate = RateMapper().mapRateDTOtoRate(ratesDTO)
+                   // val listRates = RateMapper().mapRateDTOtoRate(event.listRates)
+                    val listRates=RateMapper().mapRateDTOtoRate(ratesDTO)
                     _conversion.value = CurrencyEvent.Success(
-                        ratesDTO
+                        listRates
                     )
                 }
             }
